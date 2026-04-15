@@ -6,6 +6,6 @@ decodedtx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
 asm=$(echo "$decodedtx" | jq -r '.vin[0].scriptSig.asm')
 
-redeemScript=$(echo "$asm" | jq -r 'split(" ") | .[-1]')
+redeemScript=$(awk  '{print $NF}' <<< "$asm")
 
 echo "$redeemScript"
