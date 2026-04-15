@@ -14,7 +14,7 @@ relativevalue=$(printf '%x\n' $((0x$hexvalue + 0x400000)))
 
 timelock=$(printf '%d\n' "0x$relativevalue")
 
-<$timelock> OP_CHECKSEQUENCEVERIFY OP_DROP <$publicKey> OP_CHECKSIG
+$timelock OP_CHECKSEQUENCEVERIFY OP_DROP $publicKey OP_CHECKSIG
 
 
 
