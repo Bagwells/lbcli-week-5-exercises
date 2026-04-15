@@ -12,13 +12,18 @@ relativevalue=$(printf '%x\n' $((0x$hexvalue + 0x400000)))
 timelock=$(printf '%d\n' "0x$relativevalue")
 publicKeyHash=$(echo -n "$publicKey" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160 -binary | xxd -p -c 200)
 lock_push="03a77640"
+lock_push="03a77640"
+
 OP_CHECKSEQUENCEVERIFY="b2"
 OP_DROP="75"
-push33="21"
+OP_DUP="76"
+OP_HASH160="a9"
+PUSH20="14"
+OP_EQUALVERIFY="88"
 OP_CHECKSIG="ac"
+script="${lock_push}${OP_CHECKSEQUENCEVERIFY}${OP_DROP}${OP_DUP}${OP_HASH160}${PUSH20}${publicKeyHash}${OP_EQUALVERIFY}${OP_CHECKSIG}"
+printf '%s' "$script"
 
-script="${lock_push}${OP_CHECKSEQUENCEVERIFY}${OP_DROP}${push33}${publicKeyHash}${OP_CHECKSIG}"
-echo "$script"
 
 
 
