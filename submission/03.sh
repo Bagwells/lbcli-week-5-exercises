@@ -5,4 +5,4 @@ decodedtx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
 redeem_script=$(echo "$decodedtx" | jq -r '.vin[0].scriptSig.asm | split(" ") | .[-1]')
 
-bitcoin-cli -regtest decodescript "$redeem_script" | jq -r 'segwit.p2sh-segwit'
+bitcoin-cli -regtest decodescript "$redeem_script" | jq -r 'segwit."p2sh-segwit"'
