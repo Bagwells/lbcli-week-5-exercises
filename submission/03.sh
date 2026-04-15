@@ -3,7 +3,7 @@ transaction="020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f9548
 
 decodedtx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
-redeem_script=$(echo "$decodedtx" | jq -r '.vout[0].scriptPubKey.hex' <<< "$decodedtx")
+redeem_script=$(echo "$decodedtx" | jq -r '.vout[0].scriptPubKey.hex')
 
 P2SH_address=$(bitcoin-cli -regtest decodescript "$redeem_script" | jq -r '.p2sh')
 
