@@ -11,12 +11,13 @@ hexvalue=$(printf '%x\n' $nvalue)
 relativevalue=$(printf '%x\n' $((0x$hexvalue + 0x400000)))
 timelock=$(printf '%d\n' "0x$relativevalue")
 
+lock_push="03a77640"
 OP_CHECKSEQUENCEVERIFY="b2"
 OP_DROP="75"
 push33="21"
 OP_CHECKSIG="ac"
 
-script="$timelock OP_CHECKSEQUENCEVERIFY OP_DROP $publicKey OP_CHECKSIG"
+script="${lock_push}${OP_CHECKSEQUENCEVERIFY}${OP_DROP}${push33}${publicKey}${OP_CHECKSIG}"
 echo "$script"
 
 
