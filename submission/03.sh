@@ -5,6 +5,4 @@ decodedtx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
 redeem_script=$(echo "$decodedtx" | jq -r '.vout[0].scriptPubKey.hex')
 
-P2SH_address=$(bitcoin-cli -regtest decodescript "$redeem_script" | jq -r '.p2sh')
-
-echo "$P2SH_address"
+bitcoin-cli -regtest decodescript "$redeem_script" | jq -r '.p2sh'
