@@ -3,6 +3,6 @@ transaction="020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f9548
 
 decodedtx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
-redeem_script=$(echo "$decodedtx" | jq -r '.vout[0].scriptPubKey.hex')
+redeem_script=$(echo "$decodedtx" | jq -r '.vin[0].scriptSig.asm | split(" ") | .[-1]')
 
-bitcoin-cli -regtest decodescript "$redeem_script" | jq -r '.p2sh' | tr -d '\r'
+bitcoin-cli -regtest decodescript "$redeem_script" | jq -r 'segwit.p2sh-segwit'
