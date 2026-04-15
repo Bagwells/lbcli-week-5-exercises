@@ -9,12 +9,15 @@ seconds=$((6 * 30 * 24 * 60 * 60))
 nvalue=$(($seconds / 512))
 hexvalue=$(printf '%x\n' $nvalue)
 relativevalue=$(printf '%x\n' $((0x$hexvalue + 0x400000)))
-
-
-
 timelock=$(printf '%d\n' "0x$relativevalue")
 
-$timelock OP_CHECKSEQUENCEVERIFY OP_DROP $publicKey OP_CHECKSIG
+OP_CHECKSEQUENCEVERIFY="b2"
+OP_DROP="75"
+push33="21"
+OP_CHECKSIG="ac"
+
+script="$timelock OP_CHECKSEQUENCEVERIFY OP_DROP $publicKey OP_CHECKSIG"
+echo "$script"
 
 
 
